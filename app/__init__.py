@@ -1,10 +1,10 @@
 from flask import Flask
 import pymysql
+import redis
 from flask_sqlalchemy import SQLAlchemy
 import logging
 from logging.handlers import RotatingFileHandler
 from flask_cors import CORS
-from flask_session import Session
 from config import config_map
 pymysql.install_as_MySQLdb()
 
@@ -38,13 +38,13 @@ def create_app(config_name):
 
     redis_store = redis.StrictRedis(host=config_class.REDIS_HOST,port=config_class.REDIS_PORT)
 
-    # flask session 配置
-    Session(app)
-    app.url_map.converters['re'] = ReConvert
+
+    # app.url_map.converters['re'] = ReConvert
 
     # 注册蓝图
-    from app.views import api_bp
-    app.register_blueprint(api_bp)
+    from app import api_1_0, api_1_1
+    app.register_blueprint(api_1_0.api_bp, url_prefix="/api/v1.0")
+    app.register_blueprint(api_1_1.api_bp, url_prefix="/api/v1.1")
     return app
 
     

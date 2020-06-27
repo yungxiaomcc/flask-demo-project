@@ -6,4 +6,4 @@ api = Api(api_bp)
 
 # 导入视图
 
-from . import taskview1,taskview2
+from . import taskview1, taskview2, user
