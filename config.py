@@ -17,7 +17,11 @@ class DevConfig(Config):
 class ProdConfig(Config):
     pass
 
+class TestConfig(Config):
+    pass
+
 config_map={
     'dev':DevConfig,
-    'prod':ProdConfig
+    'prod':ProdConfig,
+    'test':TestConfig
 }
